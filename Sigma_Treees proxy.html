@@ -93,8 +93,8 @@
     <p>Fast, secure, and unrestricted web browsing.</p>
 
     <div class="search-container">
-        <input type="text" class="search-input" placeholder="Enter URL or search freely...">
-        <button class="search-btn">Go</button>
+        <input type="text" id="uv-address" class="search-input" placeholder="Enter URL or search freely..." onkeydown="if(event.key === 'Enter') handleSearch()">
+        <button class="search-btn" onclick="handleSearch()">Go</button>
     </div>
 
     <div class="quick-links">
@@ -103,10 +103,38 @@
         <a href="#" onclick="launchProxy('https://google.com')">Google</a>
     </div>
 
+    <!-- Ensure your Ultraviolet scripts are registered and served properly by your backend node -->
+    <script src="uv/uv.bundle.js" defer></script>
+    <script src="uv/uv.config.js" defer></script>
     <script>
         function launchProxy(url) {
-            // This function will connect to your Ultraviolet/Rammerhead backend setup
-            alert("Routing " + url + " through Sigma_Trees nodes...");
+            if (!url) return;
+            
+            // Check if the URL is a valid domain or needs a search query wrapper
+            let targetUrl = url.trim();
+            const urlPattern = /^([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(:\d+)?(\/.*)?$/;
+            
+            if (!/^https?:\/\//i.test(targetUrl)) {
+                if (urlPattern.test(targetUrl)) {
+                    targetUrl = 'https://' + targetUrl;
+                } else {
+                    // Fallback to Google Search if it's a plain keyword query
+                    targetUrl = 'https://google.com' + encodeURIComponent(targetUrl);
+                }
+            }
+
+            // Redirects to your standard Ultraviolet stealth endpoint pattern
+            if (window.__uv$config) {
+                window.location.href = window.__uv$config.prefix + window.__uv$config.encodeUrl(targetUrl);
+            } else {
+                // Local testing fallback if uv.config.js hasn't loaded yet
+                window.location.href = '/service/' + btoa(targetUrl);
+            }
+        }
+
+        function handleSearch() {
+            const input = document.getElementById('uv-address');
+            launchProxy(input.value);
         }
     </script>
 
