@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sigma_Trees Proxy</title>
+    <style>
+        body {
+            background-color: #0b0f12; /* Deep dark background */
+            color: #ffffff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        h1 {
+            color: #2ecc71; /* Vibrant Sigma Green */
+            font-size: 3rem;
+            margin-bottom: 10px;
+            text-shadow: 0 0 10px rgba(46, 204, 113, 0.3);
+        }
+
+        p {
+            color: #7f8c8d;
+            margin-bottom: 30px;
+        }
+
+        .search-container {
+            width: 100%;
+            max-width: 600px;
+            display: flex;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+            border-radius: 30px;
+            overflow: hidden;
+            border: 2px solid #2ecc71;
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 15px 25px;
+            border: none;
+            background-color: #1a232a;
+            color: white;
+            font-size: 1.1rem;
+            outline: none;
+        }
+
+        .search-btn {
+            background-color: #2ecc71;
+            color: #10171d;
+            border: none;
+            padding: 0 30px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .search-btn:hover {
+            background-color: #27ae60;
+        }
+
+        .quick-links {
+            margin-top: 40px;
+            display: flex;
+            gap: 20px;
+        }
+
+        .quick-links a {
+            color: #95a5a6;
+            text-decoration: none;
+            padding: 10px 20px;
+            background: #1a232a;
+            border-radius: 8px;
+            transition: all 0.2s;
+            border: 1px solid transparent;
+        }
+
+        .quick-links a:hover {
+            color: #fff;
+            border-color: #2ecc71;
+            background: #212e37;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Sigma_Trees</h1>
+    <p>Fast, secure, and unrestricted web browsing.</p>
+
+    <div class="search-container">
+        <input type="text" class="search-input" placeholder="Enter URL or search freely...">
+        <button class="search-btn">Go</button>
+    </div>
+
+    <div class="quick-links">
+        <a href="#" onclick="launchProxy('https://youtube.com')">YouTube</a>
+        <a href="#" onclick="launchProxy('https://discord.com')">Discord</a>
+        <a href="#" onclick="launchProxy('https://google.com')">Google</a>
+    </div>
+
+    <script>
+        function launchProxy(url) {
+            // This function will connect to your Ultraviolet/Rammerhead backend setup
+            alert("Routing " + url + " through Sigma_Trees nodes...");
+        }
+    </script>
+
+</body>
+</html>
