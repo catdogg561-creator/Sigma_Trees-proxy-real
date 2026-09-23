@@ -4,10 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title id="tab-title">Sigma_Trees Proxy</title>
-    
-    <!-- Custom Tree Favicon for your site -->
-    <link id="tab-icon" rel="icon" type="image/x-icon" href="https://icons8.com">
-    
+    <!-- Default Favicon link to allow changing it during Stealth Mode -->
+    <link id="tab-icon" rel="icon" type="image/x-icon" href="https://gstatic.com">
     <style>
         /* CSS Custom Variables for Theme Engine */
         :root {
@@ -44,7 +42,6 @@
             height: 100vh;
             margin: 0;
             transition: background-color 0.3s ease;
-            overflow: hidden;
         }
 
         body:fullscreen {
@@ -168,103 +165,11 @@
             background: #212e37;
         }
 
+        /* Little help tip footer */
         .stealth-tip {
             margin-top: 50px;
             font-size: 0.85rem;
             color: #556270;
-        }
-
-        /* 🚨 GOOGLE CLASSROOM MASKING SCREEN LAYER */
-        #classroom-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background-color: #ffffff;
-            z-index: 99999;
-            color: #000000;
-            font-family: 'Roboto', Arial, sans-serif;
-            flex-direction: column;
-        }
-
-        /* Fake Navbar layout styling */
-        .classroom-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 10px 24px;
-            border-bottom: 1px solid #dadce0;
-            height: 48px;
-        }
-
-        .classroom-left {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-        }
-
-        .classroom-logo {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 22px;
-            color: #5f6368;
-            font-weight: 400;
-        }
-
-        .classroom-logo img {
-            width: 24px;
-            height: 24px;
-        }
-
-        /* Grid display matching class boxes layout structure */
-        .classroom-content {
-            flex: 1;
-            background-color: #ffffff;
-            padding: 24px;
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 24px;
-            overflow-y: auto;
-        }
-
-        .class-card {
-            border: 1px solid #dadce0;
-            border-radius: 8px;
-            overflow: hidden;
-            height: 200px;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .card-banner {
-            background-color: #1e8e3e; /* Classroom Green */
-            color: white;
-            padding: 16px;
-            flex: 1;
-        }
-
-        .card-banner-blue { background-color: #1a73e8; }
-        .card-banner-purple { background-color: #9334e6; }
-
-        .class-title {
-            font-size: 22px;
-            font-weight: 500;
-            margin: 0;
-        }
-
-        .class-section {
-            font-size: 14px;
-            margin-top: 4px;
-            opacity: 0.9;
-        }
-
-        .card-footer {
-            height: 48px;
-            border-top: 1px solid #e0e0e0;
-            background: #fff;
         }
     </style>
 </head>
@@ -295,58 +200,14 @@
 
     <div class="stealth-tip">💡 Press the <b>"P" key</b> at any time for Stealth Panic Cloak.</div>
 
-
-    <!-- 🚨 STEALTH MODE FULL DISPLAY OVERLAY -->
-    <div id="classroom-overlay">
-        <div class="classroom-header">
-            <div class="classroom-left">
-                <div style="font-size:24px; color:#5f6368; cursor:pointer;">☰</div>
-                <div class="classroom-logo">
-                    <img src="https://gstatic.com" alt="logo">
-                    <span>Google Classroom</span>
-                </div>
-            </div>
-            <div style="font-size:20px; color:#5f6368;">⚙️</div>
-        </div>
-        
-        <div class="classroom-content">
-            <div class="class-card">
-                <div class="card-banner">
-                    <div class="class-title">English III - Period 2</div>
-                    <div class="class-section">Room 204</div>
-                </div>
-                <div class="card-footer"></div>
-            </div>
-            <div class="class-card">
-                <div class="card-banner card-banner-blue">
-                    <div class="class-title">Algebra 2 Honors</div>
-                    <div class="class-section">Period 4</div>
-                </div>
-                <div class="card-footer"></div>
-            </div>
-            <div class="class-card">
-                <div class="card-banner card-banner-purple">
-                    <div class="class-title">US History</div>
-                    <div class="class-section">Period 7</div>
-        <div class="card-footer"></div>
-    </div>
-
-    <!-- The Class Card structure from your image -->
-    <div class="class-card">
-        <div class="card-banner card-banner-purple">
-            <div class="class-title">US History</div>
-            <div class="class-section">Period 7</div>
-        </div>
-    </div>
-
-    <!-- Your script engine attached directly underneath -->
     <script>
-        // 1. Dynamic Routing Configuration
+        // 1. Dynamic Routing Configuration (Fixed for Chromebook Internal Containers)
         function launchProxy(url) {
             if (!url) return;
+            
             let targetUrl = url.trim();
-            const urlPattern = /^([a-zA-Z0-9-]+.)+[a-zA-Z]{2,}(:\d+)?(/.*)?\$/;
-
+            const urlPattern = /^([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(:\d+)?(\/.*)?\$/;
+            
             if (!/^https?:\/\//i.test(targetUrl)) {
                 if (urlPattern.test(targetUrl)) {
                     targetUrl = 'https://' + targetUrl;
@@ -355,16 +216,14 @@
                 }
             }
 
-            // Fixed internal container routing address with proper port bridge
-            const backendProxyUrl = 'https://linux.test';
+            // Using the Chromebook system routing domain instead of breaking on localhost
+            const backendProxyUrl = 'http://linux.test';
             window.location.href = `${backendProxyUrl}?url=${encodeURIComponent(targetUrl)}`;
         }
 
         function handleSearch() {
             const input = document.getElementById('uv-address');
-            if (input) {
-                launchProxy(input.value);
-            }
+            launchProxy(input.value);
         }
 
         // 2. Dynamic Colors Engine
@@ -379,8 +238,7 @@
         // 3. Fullscreen Controller API
         function toggleFullScreen() {
             const btn = document.getElementById('fullscreen-toggle');
-            if (!btn) return;
-
+            
             if (!document.fullscreenElement) {
                 document.documentElement.requestFullscreen()
                     .then(() => {
@@ -397,35 +255,35 @@
 
         document.addEventListener('fullscreenchange', () => {
             const btn = document.getElementById('fullscreen-toggle');
-            if (btn) {
-                if (!document.fullscreenElement) {
-                    btn.innerText = "⛶ Fullscreen";
-                }
+            if (!document.fullscreenElement) {
+                btn.innerText = "⛶ Fullscreen";
             }
         });
 
-        // 4. Keyboard Listener: Full-Screen Cloak Trigger Logic
+        // 4. Keyboard Listener: Stealth Mode Logic Trigger
         document.addEventListener('keydown', function(event) {
+            // Checks if the user is typing inside the text box input so it doesn't accidentally trigger while typing a URL
             if (document.activeElement.tagName === 'INPUT') {
-                return;
+                return; 
             }
 
+            // Detect if 'p' or 'P' key is pressed
             if (event.key === 'p' || event.key === 'P') {
                 const titleNode = document.getElementById('tab-title');
                 const iconNode = document.getElementById('tab-icon');
-                const overlay = document.getElementById('classroom-overlay');
 
-                if (!overlay) return;
-
-                if (overlay.style.display === "flex") {
-                    overlay.style.display = "none";
-                    if (titleNode) titleNode.innerText = "Sigma_Trees Proxy";
-                    if (iconNode) iconNode.setAttribute('href', 'https://icons8.com');
+                // Toggle back and forth between stealth mode masking
+                if (titleNode.innerText === "Home") {
+                    titleNode.innerText = "Sigma_Trees Proxy";
+                    iconNode.setAttribute('href', 'https://gstatic.com'); 
                 } else {
-                    overlay.style.display = "flex";
-                    if (titleNode) titleNode.innerText = "Home";
-                    if (iconNode) iconNode.setAttribute('href', 'https://gstatic.com');
+                    titleNode.innerText = "Home"; // Blends in with school systems
+                    iconNode.setAttribute('href', 'https://gstatic.com'); // Forces Google Classroom icon badge
                 }
             }
         });
     </script>
+
+</body>
+</html>
+
