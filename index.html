@@ -359,8 +359,10 @@
         }
 
         // Fixed internal container domain with proper port routing setup
-        const backendProxyUrl = 'http://linux.test';
-        window.location.href = `${backendProxyUrl}?url=${encodeURIComponent(targetUrl)}`;
+   // Fixed internal container domain with proper port routing setup
+const backendProxyUrl = 'http://100.115.92';
+window.location.href = `${backendProxyUrl}?url=${encodeURIComponent(targetUrl)}`;
+
     }
 
     function handleSearch() {
