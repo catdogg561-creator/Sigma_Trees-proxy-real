@@ -3,11 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sigma_Trees Proxy</title>
+    <title id="tab-title">Sigma_Trees Proxy</title>
+    <!-- Default Favicon link to allow changing it during Stealth Mode -->
+    <link id="tab-icon" rel="icon" type="image/x-icon" href="https://gstatic.com">
     <style>
+        /* CSS Custom Variables for Theme Engine */
+        :root {
+            --primary-color: #2ecc71;       /* Green (Default) */
+            --primary-hover: #27ae60;
+            --bg-color: #0b0f12;
+            --container-bg: #1a232a;
+            --text-color: #ffffff;
+            --muted-text: #7f8c8d;
+        }
+
+        /* Color Variations */
+        [data-theme="purple"] {
+            --primary-color: #9b59b6;
+            --primary-hover: #8e44ad;
+        }
+        [data-theme="red"] {
+            --primary-color: #e74c3c;
+            --primary-hover: #c0392b;
+        }
+        [data-theme="blue"] {
+            --primary-color: #3498db;
+            --primary-hover: #2980b9;
+        }
+
         body {
-            background-color: #0b0f12; /* Deep dark background */
-            color: #ffffff;
+            background-color: var(--bg-color);
+            color: var(--text-color);
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             display: flex;
             flex-direction: column;
@@ -18,25 +44,51 @@
             transition: background-color 0.3s ease;
         }
 
-        /* Styling explicitly for when the screen goes into full browser mode */
         body:fullscreen {
-            background-color: #0b0f12;
+            background-color: var(--bg-color);
             display: flex;
             align-items: center;
             justify-content: center;
         }
 
         h1 {
-            color: #2ecc71; /* Vibrant Sigma Green */
+            color: var(--primary-color);
             font-size: 3rem;
             margin-bottom: 10px;
-            text-shadow: 0 0 10px rgba(46, 204, 113, 0.3);
+            text-shadow: 0 0 10px rgba(46, 204, 113, 0.1);
+            transition: color 0.3s ease;
         }
 
         p {
-            color: #7f8c8d;
+            color: var(--muted-text);
             margin-bottom: 30px;
         }
+
+        /* Controls Area for Theme Grid */
+        .theme-container {
+            margin-bottom: 20px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .theme-dot {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 2px solid #ffffff33;
+            transition: transform 0.2s, border-color 0.2s;
+        }
+
+        .theme-dot:hover {
+            transform: scale(1.2);
+            border-color: #ffffff99;
+        }
+
+        .dot-green { background-color: #2ecc71; }
+        .dot-purple { background-color: #9b59b6; }
+        .dot-red { background-color: #e74c3c; }
+        .dot-blue { background-color: #3498db; }
 
         .search-container {
             width: 100%;
@@ -45,40 +97,40 @@
             box-shadow: 0 4px 20px rgba(0,0,0,0.5);
             border-radius: 30px;
             overflow: hidden;
-            border: 2px solid #2ecc71;
+            border: 2px solid var(--primary-color);
+            transition: border-color 0.3s ease;
         }
 
         .search-input {
             flex: 1;
             padding: 15px 25px;
             border: none;
-            background-color: #1a232a;
+            background-color: var(--container-bg);
             color: white;
             font-size: 1.1rem;
             outline: none;
         }
 
         .search-btn {
-            background-color: #2ecc71;
+            background-color: var(--primary-color);
             color: #10171d;
             border: none;
             padding: 0 25px;
             font-size: 1.1rem;
             font-weight: bold;
             cursor: pointer;
-            transition: background 0.2s;
+            transition: background 0.2s, color 0.2s;
         }
 
         .search-btn:hover {
-            background-color: #27ae60;
+            background-color: var(--primary-hover);
         }
 
-        /* Unique styling for the Full Screen button */
         .fullscreen-btn {
-            background-color: #1a232a;
-            color: #2ecc71;
+            background-color: var(--container-bg);
+            color: var(--primary-color);
             border: none;
-            border-left: 1px solid #2ecc71;
+            border-left: 1px solid var(--primary-color);
             padding: 0 20px;
             font-size: 1rem;
             font-weight: bold;
@@ -87,7 +139,7 @@
         }
 
         .fullscreen-btn:hover {
-            background-color: #2ecc71;
+            background-color: var(--primary-color);
             color: #10171d;
         }
 
@@ -101,7 +153,7 @@
             color: #95a5a6;
             text-decoration: none;
             padding: 10px 20px;
-            background: #1a232a;
+            background: var(--container-bg);
             border-radius: 8px;
             transition: all 0.2s;
             border: 1px solid transparent;
@@ -109,12 +161,27 @@
 
         .quick-links a:hover {
             color: #fff;
-            border-color: #2ecc71;
+            border-color: var(--primary-color);
             background: #212e37;
+        }
+
+        /* Little help tip footer */
+        .stealth-tip {
+            margin-top: 50px;
+            font-size: 0.85rem;
+            color: #556270;
         }
     </style>
 </head>
 <body>
+
+    <!-- Theme Choice Bubble Selectors -->
+    <div class="theme-container">
+        <div class="theme-dot dot-green" onclick="setTheme('green')"></div>
+        <div class="theme-dot dot-purple" onclick="setTheme('purple')"></div>
+        <div class="theme-dot dot-red" onclick="setTheme('red')"></div>
+        <div class="theme-dot dot-blue" onclick="setTheme('blue')"></div>
+    </div>
 
     <h1>Sigma_Trees</h1>
     <p>Fast, secure, and unrestricted web browsing.</p>
@@ -131,27 +198,26 @@
         <a href="#" onclick="launchProxy('https://google.com')">Google</a>
     </div>
 
+    <div class="stealth-tip">💡 Press the <b>"P" key</b> at any time for Stealth Panic Cloak.</div>
+
     <script>
+        // 1. Dynamic Routing Configuration (Fixed for Chromebook Internal Containers)
         function launchProxy(url) {
             if (!url) return;
             
             let targetUrl = url.trim();
             const urlPattern = /^([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(:\d+)?(\/.*)?\$/;
             
-            // Format input into a proper URL
             if (!/^https?:\/\//i.test(targetUrl)) {
                 if (urlPattern.test(targetUrl)) {
                     targetUrl = 'https://' + targetUrl;
                 } else {
-                    // Fallback to Google Search if it's a plain keyword query
                     targetUrl = 'https://google.com' + encodeURIComponent(targetUrl);
                 }
             }
 
-            // Points directly to your running Node.js backend
-            const backendProxyUrl = 'http://localhost:3000/proxy';
-
-            // Redirect the user through your dynamic proxy backend
+            // Using the Chromebook system routing domain instead of breaking on localhost
+            const backendProxyUrl = 'http://linux.test';
             window.location.href = `${backendProxyUrl}?url=${encodeURIComponent(targetUrl)}`;
         }
 
@@ -160,7 +226,16 @@
             launchProxy(input.value);
         }
 
-        // Handles switching between full window mode and normal view
+        // 2. Dynamic Colors Engine
+        function setTheme(themeName) {
+            if (themeName === 'green') {
+                document.documentElement.removeAttribute('data-theme');
+            } else {
+                document.documentElement.setAttribute('data-theme', themeName);
+            }
+        }
+
+        // 3. Fullscreen Controller API
         function toggleFullScreen() {
             const btn = document.getElementById('fullscreen-toggle');
             
@@ -178,14 +253,37 @@
             }
         }
 
-        // Keeps track of the text display if a user hits the 'Esc' key to quit full mode manually
         document.addEventListener('fullscreenchange', () => {
             const btn = document.getElementById('fullscreen-toggle');
             if (!document.fullscreenElement) {
                 btn.innerText = "⛶ Fullscreen";
             }
         });
+
+        // 4. Keyboard Listener: Stealth Mode Logic Trigger
+        document.addEventListener('keydown', function(event) {
+            // Checks if the user is typing inside the text box input so it doesn't accidentally trigger while typing a URL
+            if (document.activeElement.tagName === 'INPUT') {
+                return; 
+            }
+
+            // Detect if 'p' or 'P' key is pressed
+            if (event.key === 'p' || event.key === 'P') {
+                const titleNode = document.getElementById('tab-title');
+                const iconNode = document.getElementById('tab-icon');
+
+                // Toggle back and forth between stealth mode masking
+                if (titleNode.innerText === "Home") {
+                    titleNode.innerText = "Sigma_Trees Proxy";
+                    iconNode.setAttribute('href', 'https://gstatic.com'); 
+                } else {
+                    titleNode.innerText = "Home"; // Blends in with school systems
+                    iconNode.setAttribute('href', 'https://gstatic.com'); // Forces Google Classroom icon badge
+                }
+            }
+        });
     </script>
 
 </body>
 </html>
+
