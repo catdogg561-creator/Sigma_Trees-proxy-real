@@ -122,168 +122,312 @@
             transition: background 0.2s, color 0.2s;
         }
 
-        .search-btn:hover {
-            background-color: var(--primary-hover);
-        }
+         .search-btn {
+        background-color: var(--primary-color);
+        color: #10171d;
+        border: none;
+        padding: 0 25px;
+        font-size: 1.1rem;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background 0.2s, color 0.2s;
+    }
 
-        .fullscreen-btn {
-            background-color: var(--container-bg);
-            color: var(--primary-color);
-            border: none;
-            border-left: 1px solid var(--primary-color);
-            padding: 0 20px;
-            font-size: 1rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
+    .search-btn:hover {
+        background-color: var(--primary-hover);
+    }
 
-        .fullscreen-btn:hover {
-            background-color: var(--primary-color);
-            color: #10171d;
-        }
+    .fullscreen-btn {
+        background-color: var(--container-bg);
+        color: var(--primary-color);
+        border: none;
+        border-left: 1px solid var(--primary-color);
+        padding: 0 20px;
+        font-size: 1rem;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.2s;
+    }
 
-        .quick-links {
-            margin-top: 40px;
-            display: flex;
-            gap: 20px;
-        }
+    .fullscreen-btn:hover {
+        background-color: var(--primary-color);
+        color: #10171d;
+    }
 
-        .quick-links a {
-            color: #95a5a6;
-            text-decoration: none;
-            padding: 10px 20px;
-            background: var(--container-bg);
-            border-radius: 8px;
-            transition: all 0.2s;
-            border: 1px solid transparent;
-        }
+    .quick-links {
+        margin-top: 40px;
+        display: flex;
+        gap: 20px;
+    }
 
-        .quick-links a:hover {
-            color: #fff;
-            border-color: var(--primary-color);
-            background: #212e37;
-        }
+    .quick-links a {
+        color: #95a5a6;
+        text-decoration: none;
+        padding: 10px 20px;
+        background: var(--container-bg);
+        border-radius: 8px;
+        transition: all 0.2s;
+        border: 1px solid transparent;
+    }
 
-        /* Little help tip footer */
-        .stealth-tip {
-            margin-top: 50px;
-            font-size: 0.85rem;
-            color: #556270;
-        }
-    </style>
+    .quick-links a:hover {
+        color: #fff;
+        border-color: var(--primary-color);
+        background: #212e37;
+    }
+
+    /* Little help tip footer */
+    .stealth-tip {
+        margin-top: 50px;
+        font-size: 0.85rem;
+        color: #556270;
+    }
+
+    /* 🚨 GOOGLE CLASSROOM MASKING SCREEN LAYER ELEMENT STYLE */
+    #classroom-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background-color: #ffffff;
+        z-index: 99999;
+        color: #000000;
+        font-family: 'Roboto', Arial, sans-serif;
+        flex-direction: column;
+    }
+
+    .classroom-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px 24px;
+        border-bottom: 1px solid #dadce0;
+        height: 48px;
+    }
+
+    .classroom-left {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+    }
+
+    .classroom-logo {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 22px;
+        color: #5f6368;
+        font-weight: 400;
+    }
+
+    .classroom-logo img {
+        width: 24px;
+        height: 24px;
+    }
+
+    .classroom-content {
+        flex: 1;
+        background-color: #ffffff;
+        padding: 24px;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 24px;
+        overflow-y: auto;
+    }
+
+    .class-card {
+        border: 1px solid #dadce0;
+        border-radius: 8px;
+        overflow: hidden;
+        height: 200px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .card-banner {
+        background-color: #1e8e3e;
+        color: white;
+        padding: 16px;
+        flex: 1;
+    }
+
+    .card-banner-blue { background-color: #1a73e8; }
+    .card-banner-purple { background-color: #9334e6; }
+
+    .class-title {
+        font-size: 22px;
+        font-weight: 500;
+        margin: 0;
+    }
+
+    .class-section {
+        font-size: 14px;
+        margin-top: 4px;
+        opacity: 0.9;
+    }
+
+    .card-footer {
+        height: 48px;
+        border-top: 1px solid #e0e0e0;
+        background: #fff;
+    }
+</style>
 </head>
 <body>
 
-    <!-- Theme Choice Bubble Selectors -->
-    <div class="theme-container">
-        <div class="theme-dot dot-green" onclick="setTheme('green')"></div>
-        <div class="theme-dot dot-purple" onclick="setTheme('purple')"></div>
-        <div class="theme-dot dot-red" onclick="setTheme('red')"></div>
-        <div class="theme-dot dot-blue" onclick="setTheme('blue')"></div>
+<!-- Theme Choice Bubble Selectors -->
+<div class="theme-container">
+    <div class="theme-dot dot-green" onclick="setTheme('green')"></div>
+    <div class="theme-dot dot-purple" onclick="setTheme('purple')"></div>
+    <div class="theme-dot dot-red" onclick="setTheme('red')"></div>
+    <div class="theme-dot dot-blue" onclick="setTheme('blue')"></div>
+</div>
+
+<h1>Sigma_Trees</h1>
+<p>Fast, secure, and unrestricted web browsing.</p>
+
+<div class="search-container">
+    <input type="text" id="uv-address" class="search-input" placeholder="Enter URL or search freely..." onkeydown="if(event.key === 'Enter') handleSearch()">
+    <button class="search-btn" onclick="handleSearch()">Go</button>
+    <button id="fullscreen-toggle" class="fullscreen-btn" onclick="toggleFullScreen()">⛶ Fullscreen</button>
+</div>
+
+<div class="quick-links">
+    <a href="#" onclick="launchProxy('https://youtube.com')">YouTube</a>
+    <a href="#" onclick="launchProxy('https://discord.com')">Discord</a>
+    <a href="#" onclick="launchProxy('https://google.com')">Google</a>
+</div>
+
+<div class="stealth-tip">💡 Press the <b>"P" key</b> at any time for Stealth Panic Cloak.</div>
+
+
+<!-- 🚨 SECRET STEALTH CLASSROOM MASK CONTAINER OVERLAY -->
+<div id="classroom-overlay">
+    <div class="classroom-header">
+        <div class="classroom-left">
+            <div style="font-size:24px; color:#5f6368; cursor:pointer;">☰</div>
+            <div class="classroom-logo">
+                <img src="https://gstatic.com" alt="logo">
+                <span>Google Classroom</span>
+            </div>
+        </div>
+        <div style="font-size:20px; color:#5f6368;">⚙️</div>
     </div>
-
-    <h1>Sigma_Trees</h1>
-    <p>Fast, secure, and unrestricted web browsing.</p>
-
-    <div class="search-container">
-        <input type="text" id="uv-address" class="search-input" placeholder="Enter URL or search freely..." onkeydown="if(event.key === 'Enter') handleSearch()">
-        <button class="search-btn" onclick="handleSearch()">Go</button>
-        <button id="fullscreen-toggle" class="fullscreen-btn" onclick="toggleFullScreen()">⛶ Fullscreen</button>
+    
+    <div class="classroom-content">
+        <div class="class-card">
+            <div class="card-banner">
+                <div class="class-title">English III - Period 2</div>
+                <div class="class-section">Room 204</div>
+            </div>
+            <div class="card-footer"></div>
+        </div>
+        <div class="class-card">
+            <div class="card-banner card-banner-blue">
+                <div class="class-title">Algebra 2 Honors</div>
+                <div class="class-section">Period 4</div>
+            </div>
+            <div class="card-footer"></div>
+        </div>
+        <div class="class-card">
+            <div class="card-banner card-banner-purple">
+                <div class="class-title">US History</div>
+                <div class="class-section">Period 7</div>
+            </div>
+            <div class="card-footer"></div>
+        </div>
     </div>
+</div>
 
-    <div class="quick-links">
-        <a href="#" onclick="launchProxy('https://youtube.com')">YouTube</a>
-        <a href="#" onclick="launchProxy('https://discord.com')">Discord</a>
-        <a href="#" onclick="launchProxy('https://google.com')">Google</a>
-    </div>
 
-    <div class="stealth-tip">💡 Press the <b>"P" key</b> at any time for Stealth Panic Cloak.</div>
-
-    <script>
-        // 1. Dynamic Routing Configuration (Fixed for Chromebook Internal Containers)
-        function launchProxy(url) {
-            if (!url) return;
-            
-            let targetUrl = url.trim();
-            const urlPattern = /^([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(:\d+)?(\/.*)?\$/;
-            
-            if (!/^https?:\/\//i.test(targetUrl)) {
-                if (urlPattern.test(targetUrl)) {
-                    targetUrl = 'https://' + targetUrl;
-                } else {
-                    targetUrl = 'https://google.com' + encodeURIComponent(targetUrl);
-                }
-            }
-
-            // Using the Chromebook system routing domain instead of breaking on localhost
-            const backendProxyUrl = 'http://linux.test';
-            window.location.href = `${backendProxyUrl}?url=${encodeURIComponent(targetUrl)}`;
-        }
-
-        function handleSearch() {
-            const input = document.getElementById('uv-address');
-            launchProxy(input.value);
-        }
-
-        // 2. Dynamic Colors Engine
-        function setTheme(themeName) {
-            if (themeName === 'green') {
-                document.documentElement.removeAttribute('data-theme');
+<script>
+    // 1. Dynamic Routing Configuration (Fixed Network Address Link)
+    function launchProxy(url) {
+        if (!url) return;
+        
+        let targetUrl = url.trim();
+        const urlPattern = /^([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(:\d+)?(\/.*)?\$/;
+        
+        if (!/^https?:\/\//i.test(targetUrl)) {
+            if (urlPattern.test(targetUrl)) {
+                targetUrl = 'https://' + targetUrl;
             } else {
-                document.documentElement.setAttribute('data-theme', themeName);
+                targetUrl = 'https://google.com' + encodeURIComponent(targetUrl);
             }
         }
 
-        // 3. Fullscreen Controller API
-        function toggleFullScreen() {
-            const btn = document.getElementById('fullscreen-toggle');
-            
-            if (!document.fullscreenElement) {
-                document.documentElement.requestFullscreen()
-                    .then(() => {
-                        btn.innerText = "✕ Exit Full";
-                    })
-                    .catch((err) => {
-                        console.error(`Error trying to enable fullscreen: ${err.message}`);
-                    });
+        // Fixed internal container domain with proper port routing setup
+        const backendProxyUrl = 'http://linux.test';
+        window.location.href = `${backendProxyUrl}?url=${encodeURIComponent(targetUrl)}`;
+    }
+
+    function handleSearch() {
+        const input = document.getElementById('uv-address');
+        launchProxy(input.value);
+    }
+
+    // 2. Dynamic Colors Engine
+    function setTheme(themeName) {
+        if (themeName === 'green') {
+            document.documentElement.removeAttribute('data-theme');
+        } else {
+            document.documentElement.setAttribute('data-theme', themeName);
+        }
+    }
+
+    // 3. Fullscreen Controller API
+    function toggleFullScreen() {
+        const btn = document.getElementById('fullscreen-toggle');
+        
+        if (!document.fullscreenElement) {
+            document.documentElement.requestFullscreen()
+                .then(() => {
+                    btn.innerText = "✕ Exit Full";
+                })
+                .catch((err) => {
+                    console.error(`Error trying to enable fullscreen: ${err.message}`);
+                });
+        } else {
+            document.exitFullscreen();
+            btn.innerText = "⛶ Fullscreen";
+        }
+    }
+
+    document.addEventListener('fullscreenchange', () => {
+        const btn = document.getElementById('fullscreen-toggle');
+        if (!document.fullscreenElement) {
+            btn.innerText = "⛶ Fullscreen";
+        }
+    });
+
+    // 4. Keyboard Listener: Full-Screen Cloak Trigger Logic
+    document.addEventListener('keydown', function(event) {
+        if (document.activeElement.tagName === 'INPUT') {
+            return; 
+        }
+
+        if (event.key === 'p' || event.key === 'P') {
+            const titleNode = document.getElementById('tab-title');
+            const iconNode = document.getElementById('tab-icon');
+            const overlay = document.getElementById('classroom-overlay');
+
+            if (overlay.style.display === "flex") {
+                overlay.style.display = "none";
+                titleNode.innerText = "Sigma_Trees Proxy";
+                iconNode.setAttribute('href', 'https://icons8.com');
             } else {
-                document.exitFullscreen();
-                btn.innerText = "⛶ Fullscreen";
+                overlay.style.display = "flex";
+                titleNode.innerText = "Home"; 
+                iconNode.setAttribute('href', 'https://gstatic.com');
             }
         }
-
-        document.addEventListener('fullscreenchange', () => {
-            const btn = document.getElementById('fullscreen-toggle');
-            if (!document.fullscreenElement) {
-                btn.innerText = "⛶ Fullscreen";
-            }
-        });
-
-        // 4. Keyboard Listener: Stealth Mode Logic Trigger
-        document.addEventListener('keydown', function(event) {
-            // Checks if the user is typing inside the text box input so it doesn't accidentally trigger while typing a URL
-            if (document.activeElement.tagName === 'INPUT') {
-                return; 
-            }
-
-            // Detect if 'p' or 'P' key is pressed
-            if (event.key === 'p' || event.key === 'P') {
-                const titleNode = document.getElementById('tab-title');
-                const iconNode = document.getElementById('tab-icon');
-
-                // Toggle back and forth between stealth mode masking
-                if (titleNode.innerText === "Home") {
-                    titleNode.innerText = "Sigma_Trees Proxy";
-                    iconNode.setAttribute('href', 'https://gstatic.com'); 
-                } else {
-                    titleNode.innerText = "Home"; // Blends in with school systems
-                    iconNode.setAttribute('href', 'https://gstatic.com'); // Forces Google Classroom icon badge
-                }
-            }
-        });
-    </script>
+    });
+</script>
 
 </body>
 </html>
 
+ 
+     
