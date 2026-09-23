@@ -15,6 +15,15 @@
             justify-content: center;
             height: 100vh;
             margin: 0;
+            transition: background-color 0.3s ease;
+        }
+
+        /* Styling explicitly for when the screen goes into full browser mode */
+        body:fullscreen {
+            background-color: #0b0f12;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         h1 {
@@ -31,7 +40,7 @@
 
         .search-container {
             width: 100%;
-            max-width: 600px;
+            max-width: 650px;
             display: flex;
             box-shadow: 0 4px 20px rgba(0,0,0,0.5);
             border-radius: 30px;
@@ -53,7 +62,7 @@
             background-color: #2ecc71;
             color: #10171d;
             border: none;
-            padding: 0 30px;
+            padding: 0 25px;
             font-size: 1.1rem;
             font-weight: bold;
             cursor: pointer;
@@ -62,6 +71,24 @@
 
         .search-btn:hover {
             background-color: #27ae60;
+        }
+
+        /* Unique styling for the Full Screen button */
+        .fullscreen-btn {
+            background-color: #1a232a;
+            color: #2ecc71;
+            border: none;
+            border-left: 1px solid #2ecc71;
+            padding: 0 20px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .fullscreen-btn:hover {
+            background-color: #2ecc71;
+            color: #10171d;
         }
 
         .quick-links {
@@ -95,6 +122,7 @@
     <div class="search-container">
         <input type="text" id="uv-address" class="search-input" placeholder="Enter URL or search freely..." onkeydown="if(event.key === 'Enter') handleSearch()">
         <button class="search-btn" onclick="handleSearch()">Go</button>
+        <button id="fullscreen-toggle" class="fullscreen-btn" onclick="toggleFullScreen()">⛶ Fullscreen</button>
     </div>
 
     <div class="quick-links">
@@ -103,17 +131,14 @@
         <a href="#" onclick="launchProxy('https://google.com')">Google</a>
     </div>
 
-    <!-- Ensure your Ultraviolet scripts are registered and served properly by your backend node -->
-    <script src="uv/uv.bundle.js" defer></script>
-    <script src="uv/uv.config.js" defer></script>
     <script>
         function launchProxy(url) {
             if (!url) return;
             
-            // Check if the URL is a valid domain or needs a search query wrapper
             let targetUrl = url.trim();
-            const urlPattern = /^([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(:\d+)?(\/.*)?$/;
+            const urlPattern = /^([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(:\d+)?(\/.*)?\$/;
             
+            // Format input into a proper URL
             if (!/^https?:\/\//i.test(targetUrl)) {
                 if (urlPattern.test(targetUrl)) {
                     targetUrl = 'https://' + targetUrl;
@@ -123,19 +148,43 @@
                 }
             }
 
-            // Redirects to your standard Ultraviolet stealth endpoint pattern
-            if (window.__uv$config) {
-                window.location.href = window.__uv$config.prefix + window.__uv$config.encodeUrl(targetUrl);
-            } else {
-                // Local testing fallback if uv.config.js hasn't loaded yet
-                window.location.href = '/service/' + btoa(targetUrl);
-            }
+            // Points directly to your running Node.js backend
+            const backendProxyUrl = 'http://localhost:3000/proxy';
+
+            // Redirect the user through your dynamic proxy backend
+            window.location.href = `${backendProxyUrl}?url=${encodeURIComponent(targetUrl)}`;
         }
 
         function handleSearch() {
             const input = document.getElementById('uv-address');
             launchProxy(input.value);
         }
+
+        // Handles switching between full window mode and normal view
+        function toggleFullScreen() {
+            const btn = document.getElementById('fullscreen-toggle');
+            
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen()
+                    .then(() => {
+                        btn.innerText = "✕ Exit Full";
+                    })
+                    .catch((err) => {
+                        console.error(`Error trying to enable fullscreen: ${err.message}`);
+                    });
+            } else {
+                document.exitFullscreen();
+                btn.innerText = "⛶ Fullscreen";
+            }
+        }
+
+        // Keeps track of the text display if a user hits the 'Esc' key to quit full mode manually
+        document.addEventListener('fullscreenchange', () => {
+            const btn = document.getElementById('fullscreen-toggle');
+            if (!document.fullscreenElement) {
+                btn.innerText = "⛶ Fullscreen";
+            }
+        });
     </script>
 
 </body>
